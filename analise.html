@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisar exame — ExamIA</title>
+  <meta name="description" content="Envie a foto ou o PDF do seu hemograma e veja cada valor explicado em palavras simples. Projeto escolar: não substitui o médico.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilo.css">
+  <!-- Avisa ao CSS que o JavaScript está funcionando (só assim as animações escondem as coisas antes de aparecer) -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Células decorativas nas laterais (só flutuam, como na Home) -->
+  <div class="decoracao" aria-hidden="true">
+    <img class="celula analise-cel-topo" src="imagens/celula-site.png" alt="">
+    <img class="celula analise-cel-baixo" src="imagens/celula-site.png" alt="">
+  </div>
+
+  <!-- Menu fixo de vidro (igual ao das outras páginas) -->
+  <header class="topo">
+    <nav class="menu" aria-label="Menu principal">
+      <a class="logo" href="index.html">ExamIA</a>
+
+      <button class="menu-botao" type="button" aria-expanded="false" aria-controls="menu-links" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="menu-links" id="menu-links">
+        <li><a href="index.html#como-funciona">Como funciona</a></li>
+        <li><a href="aviso.html">Aviso</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a class="btn" href="analise.html" aria-current="page">Analisar exame</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="pagina">
+    <main>
+
+      <!-- Topo -->
+      <section class="topo-pagina" aria-labelledby="titulo-analise">
+        <h1 id="titulo-analise" class="revelar">Analise o seu <em>hemograma</em></h1>
+        <p class="revelar" style="--atraso: 0.2s">Envie a foto ou o PDF do exame e veja cada valor explicado em palavras simples.</p>
+      </section>
+
+      <!-- Envio do exame -->
+      <section class="envio" id="envio" aria-labelledby="titulo-envio">
+        <h2 id="titulo-envio" class="revelar">Enviar exame</h2>
+
+        <!-- Privacidade: vem antes de tudo, para a pessoa ler antes de escolher o arquivo -->
+        <div class="privacidade revelar" style="--atraso: 0.1s">
+          <p><strong>Este é um projeto escolar. Não envie exames com seu nome ou dados pessoais.</strong></p>
+          <p>Seu exame não fica salvo no site: ele é usado só para gerar a explicação. Se precisar, corte ou cubra seus dados antes de enviar.</p>
+        </div>
+
+        <!-- novalidate: em vez do balãozinho do navegador (pequeno e some rápido), o JS mostra a própria mensagem -->
+        <form class="form-envio revelar" style="--atraso: 0.2s" novalidate>
+
+          <!-- Área de envio: o input de arquivo fica escondido e o <label> inteiro vira a área clicável.
+               A classe "arrastando" (colocada pelo JS) destaca a área quando um arquivo é arrastado por cima. -->
+          <div class="upload">
+            <input class="upload-input" type="file" id="arquivo" name="arquivo" accept="application/pdf,image/jpeg,image/png">
+            <label class="upload-area" for="arquivo">
+              <svg class="upload-icone" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M12 4h16l10 10v28a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M28 4v10h10M24 36V22m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="upload-titulo">Escolha a foto ou o PDF do exame</span>
+              <span class="btn btn-secundario upload-botao">Escolher arquivo</span>
+              <span class="upload-arrastar">ou arraste o arquivo para cá</span>
+              <span class="upload-formatos">Formatos: PDF, JPG ou PNG</span>
+            </label>
+            <!-- Prévia do arquivo escolhido (o JS preenche e mostra).
+                 Foto: aparece a própria imagem. PDF: aparece um ícone de documento.
+                 A prévia fica só no navegador da pessoa; nada é enviado nesse momento. -->
+            <div class="upload-escolhido" hidden>
+              <img class="upload-previa" alt="Prévia do exame escolhido" hidden>
+              <svg class="upload-previa-pdf" viewBox="0 0 48 48" aria-hidden="true" hidden>
+                <path d="M12 4h16l10 10v28a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M28 4v10h10M17 26h14M17 32h14M17 38h9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <div class="upload-escolhido-texto">
+                <p>✓ Arquivo escolhido:</p>
+                <p><strong class="upload-nome"></strong></p>
+                <button class="btn-texto upload-remover" type="button">Remover arquivo</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Checkboxes obrigatórios -->
+          <div class="confirmacao">
+            <input type="checkbox" id="sem-dados" name="sem-dados" required>
+            <label for="sem-dados">Conferi que o exame <strong>não mostra meu nome, CPF ou outros dados pessoais</strong> (cortei ou cobri antes de enviar).</label>
+          </div>
+          <div class="confirmacao">
+            <input type="checkbox" id="entendi" name="entendi" required>
+            <label for="entendi">Entendi que o ExamIA <strong>não faz diagnóstico</strong> e não substitui a consulta com um médico.</label>
+          </div>
+          <a class="link-seta confirmacao-link" href="aviso.html">Ler o aviso completo →</a>
+
+          <!-- Mensagem quando falta algo (arquivo ou checkbox). O JS preenche e mostra. -->
+          <p class="form-aviso" role="alert" hidden></p>
+
+          <div class="envio-acoes">
+            <button class="btn envio-botao" type="submit">Analisar exame</button>
+          </div>
+
+          <!-- Exemplo discreto, no canto: serve de reserva se a internet falhar na feira -->
+          <button class="btn-texto btn-exemplo" type="button">Usar exame de exemplo</button>
+        </form>
+
+        <!-- Estados (escondidos; o JS mostra um de cada vez).
+             role="status" e role="alert" fazem o leitor de tela anunciar a mensagem. -->
+        <div class="estado estado-carregando" role="status" hidden>
+          <span class="carregando-roda" aria-hidden="true"></span>
+          <div>
+            <p><strong>Analisando seu exame…</strong></p>
+            <p>Isso pode levar até meio minuto.</p>
+          </div>
+        </div>
+
+        <div class="estado estado-erro" role="alert" hidden>
+          <div>
+            <p><strong class="erro-titulo">Não conseguimos analisar agora.</strong></p>
+            <p class="erro-texto">Pode ser a internet ou o serviço de IA. Você pode tentar de novo ou ver como funciona com o exame de exemplo.</p>
+            <div class="estado-acoes">
+              <button class="btn erro-exemplo" type="button">Ver exame de exemplo</button>
+              <button class="btn btn-secundario erro-tentar" type="button">Tentar de novo</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resultado: fica escondido até a análise terminar.
+           O JS (js/analise.js) preenche o resumo e a lista de itens e depois mostra a seção. -->
+      <section class="resultado" id="resultado" aria-labelledby="titulo-resultado" hidden>
+        <div class="resultado-cabecalho">
+          <h2 id="titulo-resultado" tabindex="-1">Resultado</h2>
+          <span class="etiqueta resultado-etiqueta" hidden>Exame de exemplo (fictício)</span>
+        </div>
+
+        <!-- Resumo no card de vidro, sobre a faixa oliva com células -->
+        <div class="vitrine">
+          <img class="celula vitrine-cel-1" src="imagens/celula2-b-vidro.png" alt="" aria-hidden="true">
+          <img class="celula vitrine-cel-2" src="imagens/celula2-d-vidro.png" alt="" aria-hidden="true">
+          <div class="vidro">
+            <h3>Resumo do exame</h3>
+            <div class="resultado-resumo"><!-- parágrafos do resumo (JS) --></div>
+            <p class="vidro-aviso">Isto não é um diagnóstico. Converse com um médico sobre o seu resultado.</p>
+          </div>
+        </div>
+
+        <!-- Item por item (na mesma ordem do exame, para facilitar conferir com o papel) -->
+        <h3 class="resultado-subtitulo">Item por item</h3>
+        <ul class="itens"><!-- um <li> para cada item (JS) --></ul>
+
+        <div class="resultado-fim">
+          <p><strong>Lembre:</strong> o ExamIA explica o que os valores podem indicar, mas não faz diagnóstico. Leve o exame a um profissional de saúde, principalmente se algum item estiver fora da referência.</p>
+          <p class="resultado-conferir">A IA pode errar ao ler o exame: confira os valores com o seu papel.</p>
+          <button class="btn resultado-outro" type="button">Analisar outro exame</button>
+        </div>
+      </section>
+
+      <!-- Molde de um item do resultado. O <template> não aparece na página:
+           o JS copia este molde para cada item e preenche os textos. -->
+      <template id="molde-item">
+        <li class="item">
+          <div class="item-topo">
+            <h4 class="item-nome"></h4>
+            <span class="selo"></span>
+          </div>
+          <p class="item-valor"><strong></strong> <span></span></p>
+          <p class="item-explicacao"></p>
+        </li>
+      </template>
+
+    </main>
+
+    <!-- Rodapé com contato e aviso (igual ao das outras páginas) -->
+    <footer class="rodape" id="contato">
+      <div class="rodape-contato revelar">
+        <div>
+          <h2>Contato</h2>
+          <p>Dúvidas ou sugestões sobre o projeto? Fale com a equipe.</p>
+        </div>
+        <ul>
+          <li><strong>Equipe:</strong>
+            <ul class="rodape-equipe">
+              <li>Ana Carolina Guimarães Alves</li>
+              <li>David Alexandre Ferreira Gonçalves</li>
+              <li>Eduardo Melo Gimenes</li>
+              <li>Fabiano Andrade Furlan Junior</li>
+            </ul>
+          </li>
+          <li><strong>E-mail:</strong> rm98736@estudante.fieb.edu.br</li>
+          <li><strong>Escola:</strong> ITB Brasílio Flores de Azevedo (FIEB)</li>
+        </ul>
+      </div>
+      <p class="rodape-aviso"><strong>Aviso:</strong> o ExamIA é um projeto escolar feito para a Expotec. Ele não faz diagnóstico e não substitui a consulta com um médico.</p>
+      <p class="rodape-copy">© 2026 ExamIA</p>
+    </footer>
+  </div>
+
+  <script src="js/menu.js"></script>
+  <script src="js/animacoes.js"></script>
+  <!-- Primeiro o exame de exemplo (só dados), depois o código que usa ele -->
+  <script src="js/exemplo.js"></script>
+  <script src="js/analise.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamIA — seu hemograma explicado</title>
+  <meta name="description" content="Envie seu hemograma e entenda, em palavras simples, o que cada valor significa. Projeto escolar: não substitui o médico.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilo.css">
+  <!-- Avisa ao CSS que o JavaScript está funcionando (só assim as animações escondem as coisas antes de aparecer) -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Células decorativas nas laterais (ficam atrás de tudo) -->
+  <div class="decoracao" aria-hidden="true">
+    <img class="celula celula-1" src="imagens/celula-site.png" alt="">
+    <img class="celula celula-3" src="imagens/celula-site.png" alt="">
+  </div>
+
+  <!-- Menu fixo de vidro -->
+  <header class="topo">
+    <nav class="menu" aria-label="Menu principal">
+      <a class="logo" href="index.html">ExamIA</a>
+
+      <button class="menu-botao" type="button" aria-expanded="false" aria-controls="menu-links" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="menu-links" id="menu-links">
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="aviso.html">Aviso</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a class="btn" href="analise.html">Analisar exame</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="pagina">
+    <main>
+
+      <!-- Topo: bloco bege + título no bloco com recuo -->
+      <section class="hero-bloco" aria-labelledby="titulo-principal">
+        <div class="hero">
+          <div class="hero-conteudo">
+            <p class="hero-sub revelar">Envie a foto ou o PDF do seu hemograma e entenda, em palavras simples, o que cada valor significa.</p>
+            <div class="hero-acoes revelar" style="--atraso: 0.4s">
+              <a class="btn" href="analise.html">Analisar meu exame</a>
+              <a class="btn btn-secundario" href="#como-funciona">Como funciona</a>
+            </div>
+          </div>
+        </div>
+        <div class="recuo">
+          <div class="arte hero-arte revelar">
+            <img src="imagens/sangue-site.png" alt="" width="600" height="600">
+          </div>
+          <h1 id="titulo-principal" class="revelar" style="--atraso: 0.2s">Seu hemograma, explicado <em>sem complicação</em></h1>
+        </div>
+      </section>
+
+      <!-- Como funciona (faixa oliva) -->
+      <section class="faixa" id="como-funciona" aria-labelledby="titulo-como">
+        <img class="celula celula-faixa" src="imagens/celula-oliva.png" alt="" aria-hidden="true">
+        <div class="faixa-intro revelar">
+          <h2 id="titulo-como">Como funciona</h2>
+          <p>Três passos, sem cadastro.</p>
+        </div>
+        <ol class="passos">
+          <li>
+            <span class="passo-num" aria-hidden="true">1</span>
+            <div class="passo-texto">
+              <h3>Envie o exame</h3>
+              <p>Tire uma foto nítida ou envie o PDF do seu hemograma. Antes, confira se não aparece seu nome ou outros dados pessoais.</p>
+            </div>
+          </li>
+          <li>
+            <span class="passo-num" aria-hidden="true">2</span>
+            <div class="passo-texto">
+              <h3>A IA lê os valores</h3>
+              <p>O ExamIA compara cada valor com a faixa de referência que vem no próprio exame.</p>
+            </div>
+          </li>
+          <li>
+            <span class="passo-num" aria-hidden="true">3</span>
+            <div class="passo-texto">
+              <h3>Receba a explicação</h3>
+              <p>Você vê cada item em palavras simples, com um selo mostrando se está dentro ou fora da referência. Leve suas dúvidas ao médico.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Limites do site -->
+      <section class="limites" aria-labelledby="titulo-limites">
+        <div class="limites-titulo">
+          <h2 id="titulo-limites" class="revelar">O que o ExamIA<br> não faz</h2>
+          <div class="arte limites-arte revelar" style="--atraso: 0.2s">
+            <img src="imagens/microscopio-site.png" alt="" width="600" height="600" loading="lazy">
+          </div>
+        </div>
+        <div>
+          <ul class="lista-limites revelar" style="--atraso: 0.15s">
+            <li><strong>Não dá diagnóstico.</strong> Ele explica o que os valores podem indicar. Quem diagnostica é o médico.</li>
+            <li><strong>Não substitui a consulta.</strong> Se algum valor estiver fora da referência, leve o exame a um profissional de saúde.</li>
+            <li><strong>Não guarda o seu exame.</strong> O arquivo é usado só para gerar a explicação e não fica salvo no site. Mesmo assim, não envie exames com seu nome ou dados pessoais.</li>
+          </ul>
+          <a class="link-seta" href="aviso.html">Ler o aviso completo →</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Rodapé com contato e aviso -->
+    <footer class="rodape" id="contato">
+      <div class="rodape-contato revelar">
+        <div>
+          <h2>Contato</h2>
+          <p>Dúvidas ou sugestões sobre o projeto? Fale com a equipe.</p>
+        </div>
+        <!-- TROCAR: coloque aqui os dados reais de contato -->
+        <ul>
+          <li><strong>Equipe:</strong>
+            <ul class="rodape-equipe">
+              <li>Ana Carolina Guimarães Alves</li>
+              <li>David Alexandre Ferreira Gonçalves</li>
+              <li>Eduardo Melo Gimenes</li>
+              <li>Fabiano Andrade Furlan Junior</li>
+            </ul>
+          </li>
+          <li><strong>E-mail:</strong> rm98736@estudante.fieb.edu.br</li>
+          <li><strong>Escola:</strong> ITB Brasílio Flores de Azevedo (FIEB)</li>
+        </ul>
+      </div>
+      <p class="rodape-aviso"><strong>Aviso:</strong> o ExamIA é um projeto escolar feito para a Expotec. Ele não faz diagnóstico e não substitui a consulta com um médico.</p>
+      <p class="rodape-copy">© 2026 ExamIA</p>
+    </footer>
+  </div>
+
+  <script src="js/menu.js"></script>
+  <script src="js/animacoes.js"></script>
+</body>
+</html>

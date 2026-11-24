@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamIA — Destaque e leitura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html { font-size: 100%; }
+  body { font-family: system-ui, sans-serif; background: #fafafa; color: #222; padding: 24px 16px 64px; }
+  .intro { max-width: 1000px; margin: 0 auto 20px; }
+  .intro h1 { font-size: 1.4rem; margin-bottom: 6px; }
+  .intro p { color: #444; line-height: 1.5; font-size: 1.05rem; }
+
+  /* Seletor de cor de destaque */
+  .seletor { max-width: 1000px; margin: 0 auto 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .seletor button { display: flex; align-items: center; gap: 10px; font: 500 1rem system-ui, sans-serif; padding: 10px 16px 10px 10px;
+                    border-radius: 999px; border: 2px solid #ddd; background: #fff; cursor: pointer; min-height: 48px; }
+  .seletor button i { width: 26px; height: 26px; border-radius: 50%; }
+  .seletor button[aria-pressed="true"] { border-color: #2A2E24; }
+
+  /* ===== Site ===== */
+  .site { --bg:#F7F3EC; --hero:#EAE3D4; --card:#FCFAF6; --line:#E6DFCF; --sage:#D5DBC8;
+          --primary:#3F4D36; --ink:#2A2E24; --olive:#56654A; --accent:#4E6E3A; --accent-light:#DCE6CF;
+          --cel:#CDD4BF; --cel-in:#B3BDA2; --warn-bg:#F2D9CC; --warn-ink:#8A3A1C;
+          --title:'Fraunces', Georgia, serif; --body:'Atkinson Hyperlegible', system-ui, sans-serif;
+          max-width: 1000px; margin: 0 auto; background: var(--bg); border-radius: 28px; padding: 16px;
+          color: var(--ink); font-family: var(--body); font-size: 1.125rem; line-height: 1.6; }
+
+  .hero { position: relative; background: var(--hero); border-radius: 28px; overflow: hidden; padding: 16px 16px 150px; }
+  .cel { position: absolute; border-radius: 50%; background: radial-gradient(circle, var(--cel-in) 0 30%, var(--cel) 32%); }
+  .cel.a { width: 180px; height: 180px; right: -50px; bottom: 40px; }
+  .cel.b { display: none; }
+  .cel.c { display: none; width: 70px; height: 70px; }
+
+  .nav { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+         padding: 8px 8px 8px 20px; border-radius: 999px;
+         background: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.7);
+         backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+         box-shadow: 0 8px 24px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.8); }
+  .logo { font-family: var(--title); font-size: 1.5rem; font-weight: 500; }
+  .nav a { color: var(--ink); text-decoration: none; font-size: 1.05rem; }
+  .links { display: none; gap: 24px; }
+  .btn { background: var(--primary); color: #fff; border: 0; border-radius: 999px; padding: 14px 22px; min-height: 52px;
+         font: 700 1.05rem var(--body); white-space: nowrap; }
+
+  .eyebrow { position: relative; display: block; margin-top: 36px; font-size: 1rem; letter-spacing: .08em; text-transform: uppercase;
+             color: var(--accent); font-weight: 700; }
+  .sub { position: relative; max-width: 420px; margin-top: 8px; font-size: 1.2rem; }
+
+  .recuo { position: relative; margin-top: -120px; width: calc(100% - 64px); background: var(--bg);
+           border-top-right-radius: 28px; padding: 22px 22px 6px 0; }
+  .recuo::before, .recuo::after { content: ""; position: absolute; width: 28px; height: 28px;
+           background: radial-gradient(circle at 100% 0, transparent 27.5px, var(--bg) 28px); }
+  .recuo::before { top: -28px; left: 0; }
+  .recuo::after { bottom: 0; right: -28px; }
+  .recuo h2 { font-family: var(--title); font-weight: 500; font-size: clamp(2.1rem, 6vw, 3.1rem); line-height: 1.1; }
+  .recuo h2 em { color: var(--accent); }
+
+  /* Resultado */
+  .resultado { margin-top: 24px; display: grid; gap: 12px; }
+  .linha { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px;
+           background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 16px 18px; }
+  .linha .nome { font-weight: 700; font-size: 1.2rem; display: block; }
+  .linha .valor { font-size: 1.1rem; }
+  .tag { font-size: 1rem; font-weight: 700; padding: 6px 14px; border-radius: 999px; white-space: nowrap; }
+  .tag.ok { background: var(--accent-light); color: var(--ink); }
+  .tag.ok::before { content: "✓"; margin-right: 6px; }
+  .tag.atencao { background: var(--warn-bg); color: var(--warn-ink); }
+  .tag.atencao::before { content: "!"; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 6px;
+          border-radius: 50%; background: var(--warn-ink); color: #fff; font-size: .8rem; vertical-align: 2px; }
+
+  /* Demo de liquid glass: card de vidro sobre a faixa com células */
+  .vitrine { position: relative; margin-top: 24px; border-radius: 28px; overflow: hidden; background: var(--olive);
+             padding: 40px 16px; min-height: 300px; display: grid; place-items: center; }
+  .vitrine .cel { background: radial-gradient(circle, #8C9A7C 0 30%, #778868 32%); }
+  .vitrine .v1 { width: 220px; height: 220px; left: -40px; top: -40px; }
+  .vitrine .v2 { width: 150px; height: 150px; right: -20px; bottom: -30px; }
+  .vitrine .v3 { width: 80px; height: 80px; right: 30%; top: 20px; background: radial-gradient(circle, var(--warn-bg) 0 30%, #E3B9A5 32%); }
+  .vidro { position: relative; z-index: 1; width: min(520px, 100%); padding: 22px; border-radius: 26px; color: #fff;
+           background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(30,40,25,.28)); border: 1px solid rgba(255,255,255,.35);
+           backdrop-filter: blur(18px) saturate(170%); -webkit-backdrop-filter: blur(18px) saturate(170%);
+           box-shadow: 0 20px 40px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.45); }
+  .vidro h3 { font-family: var(--title); font-weight: 500; font-size: 1.6rem; margin-bottom: 6px; }
+  .vidro p { font-size: 1.15rem; }
+  .vidro small { display: block; margin-top: 12px; font-size: 1rem; opacity: .9; }
+
+  @media (min-width: 720px) {
+    body { padding: 40px 32px 80px; }
+    .site { padding: 20px; }
+    .links { display: flex; }
+    .hero { padding: 20px 20px 150px; min-height: 440px; }
+    .cel.a { width: 240px; height: 240px; right: -40px; top: 40px; bottom: auto; }
+    .cel.b { display: block; width: 120px; height: 120px; right: 200px; top: 190px; }
+    .cel.c { display: block; right: 60px; top: 290px; }
+    .recuo { width: min(600px, 62%); }
+    .resultado { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 400px) { .btn { padding: 12px 16px; font-size: 1rem; } .logo { font-size: 1.3rem; } }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>ExamIA: escolha a cor de destaque</h1>
+  <p>Clique nas cores para trocar o destaque (título em itálico, "Projeto Expotec" e selo de "normal"). As letras já estão no tamanho novo, e no final tem uma demonstração do vidro num lugar onde ele aparece.</p>
+</div>
+
+<div class="seletor" role="group" aria-label="Cor de destaque">
+  <button aria-pressed="true" data-accent="#4E6E3A" data-light="#DCE6CF"><i style="background:#4E6E3A"></i>Musgo</button>
+  <button aria-pressed="false" data-accent="#3D6470" data-light="#D3E2E4"><i style="background:#3D6470"></i>Azul-petróleo</button>
+  <button aria-pressed="false" data-accent="#7B4B5A" data-light="#EBDADF"><i style="background:#7B4B5A"></i>Ameixa</button>
+  <button aria-pressed="false" data-accent="#3F4D36" data-light="#D5DBC8"><i style="background:#3F4D36"></i>Sem destaque (só oliva)</button>
+</div>
+
+<div class="site" id="site">
+  <div class="hero">
+    <i class="cel a"></i><i class="cel b"></i><i class="cel c"></i>
+    <nav class="nav"><span class="logo">ExamIA</span><span class="links"><a href="#">Como funciona</a><a href="#">Aviso</a></span><button class="btn">Analisar exame</button></nav>
+    <span class="eyebrow">Projeto Expotec</span>
+    <p class="sub">Envie a foto ou o PDF do seu hemograma e entenda, em palavras simples, o que cada valor significa.</p>
+  </div>
+  <div class="recuo"><h2>Seu hemograma, explicado <em>sem complicação</em></h2></div>
+
+  <div class="resultado">
+    <div class="linha"><span><span class="nome">Hemoglobina</span><span class="valor">13,8 g/dL</span></span><span class="tag ok">Normal</span></div>
+    <div class="linha"><span><span class="nome">Leucócitos</span><span class="valor">11.900 /mm³</span></span><span class="tag atencao">Um pouco acima</span></div>
+  </div>
+
+  <div class="vitrine">
+    <i class="cel v1"></i><i class="cel v2"></i><i class="cel v3"></i>
+    <div class="vidro">
+      <h3>Leucócitos um pouco acima</h3>
+      <p>Os leucócitos são as células de defesa do corpo. Um valor um pouco acima do normal pode aparecer, por exemplo, durante uma gripe ou infecção leve.</p>
+      <small>Isto não é um diagnóstico. Converse com um médico sobre o seu resultado.</small>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Troca a cor de destaque quando você clica num botão
+  const site = document.getElementById('site');
+  document.querySelectorAll('.seletor button').forEach(function (botao) {
+    botao.addEventListener('click', function () {
+      site.style.setProperty('--accent', botao.dataset.accent);
+      site.style.setProperty('--accent-light', botao.dataset.light);
+      document.querySelectorAll('.seletor button').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      botao.setAttribute('aria-pressed', 'true');
+    });
+  });
+</script>
+</body>
+</html>

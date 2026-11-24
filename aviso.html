@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviso — ExamIA</title>
+  <meta name="description" content="O ExamIA é um projeto escolar: não faz diagnóstico, pode errar e não substitui o médico. Leia os limites do site e como cuidamos dos seus dados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilo.css">
+  <!-- Avisa ao CSS que o JavaScript está funcionando (só assim as animações escondem as coisas antes de aparecer) -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Células decorativas nas laterais (ficam atrás de tudo).
+       As que têm a classe "desenhar" vão aparecendo enquanto a página desce (js/desenho.js). -->
+  <div class="decoracao" aria-hidden="true">
+    <img class="celula aviso-cel-topo desenhar" src="imagens/celula-site.png" alt="">
+    <img class="celula aviso-cel-topo-esq desenhar" src="imagens/celula-site.png" alt="">
+    <img class="celula aviso-cel-b desenhar" src="imagens/celula2-b-site.png" alt="">
+    <img class="celula aviso-cel-d desenhar" src="imagens/celula2-d-site.png" alt="">
+    <img class="celula aviso-cel-rodape desenhar" src="imagens/celula-site.png" alt="">
+  </div>
+
+  <!-- Menu fixo de vidro (igual ao da Home; "Como funciona" volta para a Home) -->
+  <header class="topo">
+    <nav class="menu" aria-label="Menu principal">
+      <a class="logo" href="index.html">ExamIA</a>
+
+      <button class="menu-botao" type="button" aria-expanded="false" aria-controls="menu-links" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="menu-links" id="menu-links">
+        <li><a href="index.html#como-funciona">Como funciona</a></li>
+        <li><a href="aviso.html" aria-current="page">Aviso</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a class="btn" href="analise.html">Analisar exame</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="pagina">
+    <main>
+
+      <!-- Topo: bloco bege simples (sem recuo, que fica só na Home) -->
+      <section class="topo-pagina" aria-labelledby="titulo-aviso">
+        <h1 id="titulo-aviso" class="revelar">Antes de usar, <em>leia com calma</em></h1>
+        <p class="revelar" style="--atraso: 0.2s">O ExamIA ajuda você a entender o seu hemograma. Mas ele tem limites, e é importante conhecer cada um antes de enviar o seu exame.</p>
+      </section>
+
+      <!-- Não somos médicos -->
+      <section class="aviso-secao" aria-labelledby="titulo-medicos">
+        <!-- Coluna do título: título em cima, célula embaixo (a célula some no celular) -->
+        <div class="aviso-titulo">
+          <h2 id="titulo-medicos" class="revelar">Não somos médicos</h2>
+          <img class="celula celula-card cel-medicos desenhar desenhar-cima" src="imagens/celula2-c-site.png" alt="" aria-hidden="true">
+        </div>
+        <div class="aviso-texto revelar" style="--atraso: 0.15s">
+          <p><strong>O ExamIA é um projeto escolar</strong>, feito para a Expotec. Ele usa inteligência artificial para explicar o que os valores do exame <em>podem</em> indicar.</p>
+          <p><strong>Ele não dá diagnóstico.</strong> Um mesmo valor pode ter várias causas, e muitas delas não são problema nenhum. Só o médico junta o exame com os seus sintomas, o seu histórico e outros exames.</p>
+
+          <div class="comparacao">
+            <div class="comparacao-coluna">
+              <h3>O ExamIA pode</h3>
+              <ul class="lista-check">
+                <li>Explicar o que cada item do hemograma mede</li>
+                <li>Mostrar se um valor está dentro ou fora da referência</li>
+                <li>Ajudar você a pensar em perguntas para o médico</li>
+              </ul>
+            </div>
+            <div class="comparacao-coluna">
+              <h3>Só o médico pode</h3>
+              <ul class="lista-limites">
+                <li>Dizer se você tem alguma doença</li>
+                <li>Pedir outros exames</li>
+                <li>Indicar remédio ou tratamento</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- A IA pode errar -->
+      <section class="aviso-secao aviso-secao-destaque" aria-labelledby="titulo-errar">
+        <!-- Célula em verde (combina com o fundo verde-claro); a metade que passa do card fica cortada -->
+        <div class="aviso-titulo">
+          <h2 id="titulo-errar" class="revelar">A IA pode errar</h2>
+          <img class="celula celula-card cel-errar desenhar" src="imagens/celula2-a-verde.png" alt="" aria-hidden="true">
+        </div>
+        <div class="aviso-texto revelar" style="--atraso: 0.15s">
+          <p><strong>A inteligência artificial não é perfeita.</strong> Ela pode ler um número errado, principalmente de uma foto borrada, escura ou torta. Ela também pode explicar algo de um jeito incompleto.</p>
+          <p><strong>Por isso, confira sempre</strong> os valores mostrados no resultado com o papel do seu exame. Se algo estiver diferente, vale o que está no exame.</p>
+          <h3>Para uma foto que a IA consiga ler bem:</h3>
+          <ul class="lista-limites">
+            <li>Use um lugar bem iluminado, sem sombra em cima do papel.</li>
+            <li>Deixe o papel reto e a câmera bem de frente para ele.</li>
+            <li>Mostre a tabela inteira, com os valores e as referências.</li>
+            <li>Se tiver o PDF do laboratório, prefira enviar o PDF.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Seus dados (faixa oliva) -->
+      <section class="faixa" aria-labelledby="titulo-dados">
+        <img class="celula celula-faixa" src="imagens/celula-oliva.png" alt="" aria-hidden="true">
+        <div class="faixa-intro revelar">
+          <h2 id="titulo-dados">Seus dados</h2>
+          <p>Exame é informação sensível. Veja o que acontece com o seu.</p>
+        </div>
+        <div class="faixa-texto revelar" style="--atraso: 0.15s">
+          <p><strong>Nada fica guardado no ExamIA.</strong> O arquivo passa pelo site só para ser enviado à IA e gerar a explicação. Não temos banco de dados, não pedimos cadastro e o resultado some quando você fecha a página.</p>
+          <p><strong>A IA é do Google (Gemini), no plano gratuito.</strong> Nesse plano, o Google pode usar o que é enviado para melhorar os serviços dele, e pessoas podem revisar esse conteúdo.</p>
+          <p><strong>Por isso, não envie exames com dados pessoais:</strong></p>
+          <ul class="lista-limites">
+            <li>Corte ou cubra o seu nome, CPF, data de nascimento, endereço e número do convênio.</li>
+            <li>Na foto, basta aparecer a tabela com os valores e as referências.</li>
+            <li>Se preferir, use o exame de exemplo que já vem no site.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Quando procurar um médico -->
+      <section class="aviso-secao" aria-labelledby="titulo-procurar">
+        <h2 id="titulo-procurar" class="revelar">Quando procurar um médico</h2>
+        <div class="aviso-texto revelar" style="--atraso: 0.15s">
+          <p><strong>Se algum valor estiver fora da referência</strong>, leve o exame a um profissional de saúde. Na maioria das vezes não é nada grave, mas só ele pode dizer.</p>
+          <p><strong>Mesmo com tudo dentro da referência</strong>, continue indo às consultas de rotina e conte ao médico se sentir algo diferente.</p>
+          <div class="aviso-urgente">
+            <p><strong>Está se sentindo mal agora?</strong> Não espere pelo site. Procure um pronto-atendimento ou ligue para o SAMU no <a href="tel:192">192</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fechamento -->
+      <section class="aviso-fim revelar" aria-labelledby="titulo-fim">
+        <h2 id="titulo-fim">Tudo certo?</h2>
+        <p>Se você entendeu os limites do ExamIA, pode enviar o seu exame.</p>
+        <div class="hero-acoes">
+          <a class="btn" href="analise.html">Entendi, quero analisar meu exame</a>
+          <a class="btn btn-secundario" href="index.html">Voltar ao início</a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Rodapé com contato e aviso (igual ao da Home) -->
+    <footer class="rodape" id="contato">
+      <div class="rodape-contato revelar">
+        <div>
+          <h2>Contato</h2>
+          <p>Dúvidas ou sugestões sobre o projeto? Fale com a equipe.</p>
+        </div>
+        <ul>
+          <li><strong>Equipe:</strong>
+            <ul class="rodape-equipe">
+              <li>Ana Carolina Guimarães Alves</li>
+              <li>David Alexandre Ferreira Gonçalves</li>
+              <li>Eduardo Melo Gimenes</li>
+              <li>Fabiano Andrade Furlan Junior</li>
+            </ul>
+          </li>
+          <li><strong>E-mail:</strong> rm98736@estudante.fieb.edu.br</li>
+          <li><strong>Escola:</strong> ITB Brasílio Flores de Azevedo (FIEB)</li>
+        </ul>
+      </div>
+      <p class="rodape-aviso"><strong>Aviso:</strong> o ExamIA é um projeto escolar feito para a Expotec. Ele não faz diagnóstico e não substitui a consulta com um médico.</p>
+      <p class="rodape-copy">© 2026 ExamIA</p>
+    </footer>
+  </div>
+
+  <script src="js/menu.js"></script>
+  <script src="js/animacoes.js"></script>
+  <script src="js/desenho.js"></script>
+</body>
+</html>
